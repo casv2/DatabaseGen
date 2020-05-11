@@ -43,6 +43,8 @@ def get_LD_configs(calc, at_i, config_type, iterations, T, adjust_iterations=10,
         at_j.info["energy"] = E_j
         at_j.info["config_type"] = "LD_" + config_type + "_{}K".format(T)
 
+        write("LD_{}_{}K_{}.xyz".format(config_type,T,i), at_j)
+
         if E_j < E_i or np.random.rand() < np.exp( - (E_j - E_i)/(units.kB * T) ):
             El[i] = E_j
             at_i = at_j
@@ -51,8 +53,6 @@ def get_LD_configs(calc, at_i, config_type, iterations, T, adjust_iterations=10,
         else:
             El[i] = E_i
             al[i] = at_i
-
-        write("LD_{}_{}K_{}.xyz".format(config_type,T,i), at_i)
 
     return al
 
